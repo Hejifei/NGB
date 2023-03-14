@@ -1,9 +1,8 @@
 {
   "pages": [
-    "pages/device_add/device_add",
     "pages/index/index",
     "pages/device_list/device_list",
-    
+    "pages/device_add/device_add",
     "pages/record_list/record_list",
     "pages/logs/logs"
   ],

@@ -15,6 +15,7 @@ Component({
         const active = tabbar_data_list.filter(item => item.url === url)[0]?.value
         this.setData({
             active,
+            url,
         })
     }, 
     methods: {
