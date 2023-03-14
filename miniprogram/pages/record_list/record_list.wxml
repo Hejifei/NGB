@@ -1,0 +1,25 @@
+<!--index.wxml-->
+<view class="recordListWrapper">
+    
+    <div
+        wx:for="{{recordDataList}}"
+        wx:for-index="idx"
+        wx:for-item="item"
+        wx:key="item.date"
+        class="{{item.img ? 'itemWrapper' : 'textItemWrapper'}}"
+    >
+        <image
+            wx:if="{{item.img}}"
+            src="{{item.img}}"
+        />
+        <div
+            wx:if="{{item.text}}"
+            class="textWrapper"
+        >
+            {{item.text}}
+        </div>
+        <div class="date">
+            {{item.date}}
+        </div>
+    </div>
+</view>

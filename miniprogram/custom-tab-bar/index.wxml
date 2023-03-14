@@ -1,0 +1,28 @@
+<van-tabbar
+    active="{{ active }}"
+    active-color="#FF6A9C"
+    inactive-color="#C1C1C1"
+    bind:change="onChange">
+
+    <van-tabbar-item
+        wx:for="{{tabbar_data_list}}"
+        wx:for-item="item"
+        wx:key="value"
+        name="{{item.value}}"
+    >
+        <image
+            slot="icon"
+            src="{{item.img_src}}"
+            mode="aspectFit"
+            style="width: 20px; height: 20px;"
+        />
+        <image
+            slot="icon-active"
+            src="{{item.img_src}}"
+            mode="aspectFit"
+            style="width: 20px; height: 20px;filter: drop-shadow(0 -160px 0 #FF6A9C);position: relative;top: 160px;"
+        />
+        {{item.name}}
+    </van-tabbar-item>
+</van-tabbar>
+

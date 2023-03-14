@@ -1,0 +1,82 @@
+<view
+    class="deviceAddViewWrapper"
+>
+    <div class="historyTitle">
+        <div class="titleWrapper">
+            <van-button
+                wx:if="{{!_discoveryStarted}}"
+                class="reloadBtn"
+                icon="replay"
+                size="small"
+                type="text"
+                bindtap="openBluetoothAdapter">
+                刷新
+            </van-button>
+        </div>
+    </div>
+    <div class="historyListWrapper">
+        <!-- <view wx:for="{{devices}}" wx:key="index"
+            data-device-id="{{item.deviceId}}"
+            data-name="{{item.name || item.localName}}"
+            bindtap="createBLEConnection" 
+            class="device_item"
+            hover-class="device_item_hover">
+            <view style="font-size: 16px; color: #333;">{{item.name}}</view>
+            <view style="font-size: 10px">信号强度: {{item.RSSI}}dBm ({{utils.max(0, item.RSSI + 100)}}%)</view>
+            <view style="font-size: 10px">UUID: {{item.deviceId}}</view>
+            <view style="font-size: 10px">Service数量: {{utils.len(item.advertisServiceUUIDs)}}</view>
+        </view> -->
+        <!-- changeBluetoothConnect -->
+        <div
+            class="historyItem {{item.deviceId === connected ? 'conndecteditem' : ''}}"
+            wx:for="{{deviceList}}"
+            wx:for-index="idx"
+            wx:for-item="item"
+            wx:key="deviceId"
+            data-device-id="{{item.deviceId}}"
+            data-name="{{item.name || item.localName}}"
+            bindtap="createBLEConnection"
+        >
+            <div class="leftWrapper">
+                <div class="nameWrapper">
+                    {{item.name}}
+                </div>
+                <div class="deviceNoWrapper">
+                    设备编号: xxxx
+                </div>
+            </div>
+            <div class="actionWrapper">
+                <div
+                    class="connectBtn"
+                    wx:if="{{item.deviceId !== connected}}"
+                >
+                    点击连接
+                </div>
+                <div
+                    class="connectBtn connectedBtn"
+                    wx:if="{{item.deviceId === connected}}"
+                >
+                    断开连接
+                </div>
+            </div>
+        </div>
+        <van-empty
+            wx:if="{{deviceList.length === 0}}"
+            description="暂无可连接设备"
+        />
+    </div>
+    <blank height="10" />
+    <div class="descInfoWrapper">
+        <div class="title">
+            连接说明
+        </div>
+        <p
+            wx:for="{{descList}}"
+            wx:for-index="idx"
+            wx:for-item="item"
+            wx:key="idx"
+        >{{idx + 1}}、{{item}}</p>
+        <!-- <rich-text nodes="{{instruction}}" /> -->
+    </div>
+    <van-dialog id="van-dialog" />
+</view>

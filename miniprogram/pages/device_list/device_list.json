@@ -1,0 +1,10 @@
+{
+    "navigationBarBackgroundColor": "#FF6A9C",
+    "navigationBarTitleText": "设备列表",
+    "navigationBarTextStyle": "white",
+    "usingComponents": {
+        "van-empty": "@vant/weapp/empty/index",
+        "van-icon": "@vant/weapp/icon/index",
+        "van-dialog": "@vant/weapp/dialog/index"
+    }
+}

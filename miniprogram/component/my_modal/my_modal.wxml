@@ -1,0 +1,37 @@
+<div class="modalWrapper">
+    <div class="contentWrapper">
+        <div class="topActionLine">
+            <image
+                bindtap="handleClose"
+                src="../../assets/imgs/modal/close.png"
+            />
+        </div>
+        <div class="centerWrapper">
+            <image
+                wx:if="{{model_type === 'warning'}}"
+                src="../../assets/imgs/modal/warning.png"
+            />
+            <image
+                wx:if="{{model_type === 'waiting'}}"
+                class="waiting"
+                src="../../assets/imgs/modal/waiting.png"
+            />
+            <image
+                wx:if="{{model_type === 'error'}}"
+                src="../../assets/imgs/modal/error.png"
+            />
+            <div class="titleWrapper">
+                {{title}}
+            </div>
+            <div class="textWrapper">
+                {{content}}
+            </div>
+        </div>
+        <div
+            class="confirmWrapper"
+            bindtap="handleConfirm"
+        >
+            {{confirmText}}
+        </div>
+    </div>
+</div>

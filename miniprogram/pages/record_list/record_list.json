@@ -1,0 +1,8 @@
+{
+    "navigationBarBackgroundColor": "#FF6A9C",
+    "navigationBarTitleText": "上传列表",
+    "navigationBarTextStyle": "white",
+    "usingComponents": {
+        "my_modal": "/component/my_modal/my_modal"
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "navigationStyle": "custom",
+    "usingComponents": {
+        "my_modal": "/component/my_modal/my_modal"
+    }
+}

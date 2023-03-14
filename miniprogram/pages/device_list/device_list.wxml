@@ -1,0 +1,57 @@
+<view
+    class="infoViewWrapper"
+>
+    <div class="historyTitle">
+        <div class="actionWrapper" bindtap="changePageToAddDevice">
+            添加新设备
+        </div>
+    </div>
+    <div class="historyListWrapper">
+        <div
+            class="historyItem {{item.deviceId === connected ? 'connectedItem' : ''}}"
+            wx:for="{{historyDeviceList}}"
+            wx:for-index="idx"
+            wx:for-item="item"
+            wx:key="deviceId"
+            data-device-id="{{item.deviceId}}"
+            data-name="{{item.name}}"
+        >
+            <div class="leftWrapper">
+                <div class="nameWrapper">
+                    {{item.name}}
+
+                    <div
+                        class="editWrapper"
+                    >
+                        <image src="/assets/imgs/action/edit.png" />
+                    </div>
+                </div>
+                <div class="deviceNoWrapper">
+                    设备编号: xxxx
+                </div>
+            </div>
+            <div
+                class="statusWrapper connectedText"
+                wx:if="{{item.deviceId === connected}}"
+            >已连接</div>
+            <div
+                wx:if="{{item.deviceId !== connected}}"
+                class="statusWrapper"
+            >历史设备</div>
+        </div>
+        <van-empty
+            wx:if="{{historyDeviceList.length === 0}}"
+            description="暂无列表信息"
+        />
+        <div
+            class="goConnectBtn"
+            wx:if="{{historyDeviceList.length === 0}}"
+            bindtap="changePageToAddDevice"
+        >
+            去连接
+        </div>
+    </div>
+  
+  <!-- <blank height="10" /> -->
+  <van-dialog id="van-dialog" />
+</view>

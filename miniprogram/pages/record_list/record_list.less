@@ -1,0 +1,54 @@
+.recordListWrapper {
+    background: #F5F5F5;
+    min-height: 100vh;
+    padding: 15px;
+    box-sizing: border-box;
+    
+    .itemWrapper {
+        display: block;
+        background-color: #fff;
+        display: flex;
+        flex-direction: row;
+        padding: 15px;
+        margin-bottom: 10px;
+
+        image {
+            width: 93px;
+            height: 93px;
+            border-radius: 3px;
+            border: 1px solid black;
+        }
+
+        
+    }
+    .date {
+        flex: 1;
+        text-align: right;
+        font-size: 12px;
+        color: #999999;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .textItemWrapper {
+        display: flex;
+        flex-direction: column;
+        background-color: #fff;
+        margin-bottom: 10px;
+        padding-left: 15px;
+
+        .textWrapper {
+            padding: 13px 0;
+            color: #28282C;
+            font-size: 15px;
+            border-bottom: 1px solid #dedede;
+            word-break: break-all;
+            padding-right: 15px;
+        }
+
+        .date {
+            padding: 14px 0;
+            padding-right: 15px;           
+        }
+    }
+}

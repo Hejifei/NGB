@@ -1,0 +1,12 @@
+{
+    "navigationBarBackgroundColor": "#FF6A9C",
+    "navigationBarTitleText": "可用设备",
+    "navigationBarTextStyle": "white",
+    "usingComponents": {
+        "van-button": "@vant/weapp/button/index",
+        "van-empty": "@vant/weapp/empty/index",
+        "van-cell": "@vant/weapp/cell/index",
+        "van-dialog": "@vant/weapp/dialog/index",
+        "van-cell-group": "@vant/weapp/cell-group/index"
+    }
+}
