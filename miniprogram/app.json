@@ -1,6 +1,8 @@
 {
   "pages": [
+    "pages/index/img_upload/img_upload",
     "pages/index/index",
+    "pages/index/text_upload/text_upload",
     "pages/device_list/device_list",
     "pages/device_add/device_add",
     "pages/record_list/record_list",

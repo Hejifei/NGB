@@ -28,7 +28,7 @@ export const tabbar_data_list: {
     {
         name: '设备列表',
         value: tabbar_device_list_value,
-        img_src: '../assets/imgs/tab/device_list_active.png',
+        img_src: '../assets/imgs/tab/device_list.png',
         url: 'pages/device_list/device_list',
         router: '../device_list/device_list',
     },

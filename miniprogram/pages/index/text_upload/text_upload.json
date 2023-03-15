@@ -1,0 +1,9 @@
+{
+    "navigationBarBackgroundColor": "#FF6A9C",
+    "navigationBarTitleText": "文字上传",
+    "navigationBarTextStyle": "white",
+    "usingComponents": {
+        "my_modal": "/component/my_modal/my_modal",
+        "van-field": "@vant/weapp/field/index"
+    }
+}

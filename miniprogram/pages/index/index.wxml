@@ -1,5 +1,36 @@
 <!--index.wxml-->
-<view>
+<view class="homeWrapper">
+    <div class="headerWrapper">
+        <image class="headerBG" src="../../assets/imgs/home/header_bg.png" />
+        <div class="barTitleWrapper" style="top: {{titlePositionTop}}px;">暖宫宝</div>
+    </div>
+    <div
+        class="contentWrapper"
+        style="top: {{titlePositionTop + 17 + 25}}px;"
+    >
+        <div class="contentTopWrapper">
+            <div class="deviceLink">
+                设备链接
+            </div>
+        </div>
 
-    <my_modal></my_modal>
+        <div class="menuWrapper">
+            <div
+                class="menuItem"
+                style="margin-right: 15px;"  
+                bindtap="changePageToImgUpload"  
+            >
+                <image class="headerBG" src="../../assets/imgs/home/img_upload.png" />
+                图片上传
+            </div>
+            <div
+                class="menuItem"
+                bindtap="changePageToTextUpload"
+            >
+                <image class="headerBG" src="../../assets/imgs/home/text_upload.png" />
+                文字上传
+            </div>
+        </div>
+    </div>
+    <!-- <my_modal></my_modal> -->
 </view>

@@ -1,0 +1,20 @@
+<!--index.wxml-->
+<view class="imgUploadWrapper">
+    <van-field
+        model:value="{{text}}"
+        label=""
+        type="textarea"
+        placeholder="点击输入文字"
+        custom-style="background: #F4F6F8; border-radius: 5px; min-height: 200px; line-height: 20px;"
+        autosize
+        border="{{ false }}"
+    />
+
+    <div
+        class="confirmBtn"
+        bindtap="confirmUpload"    
+    >
+        确认上传
+    </div>
+    <!-- <my_modal></my_modal> -->
+</view>

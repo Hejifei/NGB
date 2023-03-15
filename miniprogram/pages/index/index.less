@@ -1,1 +1,91 @@
 /**index.wxss**/
+.homeWrapper {
+    position: relative;
+    min-height: 100vh;
+    box-sizing: border-box;
+    background-color: #F5F5F5;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+
+    .headerWrapper {
+        position: relative;
+        height: 296px;
+        width: 100%;
+        color: #fff;
+
+        .headerBG {
+            width: 100%;
+            height: 153px;
+        }
+
+        .barTitleWrapper {
+            position: absolute;
+            // top: 44px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 17px;
+            font-weight: 700;
+        }
+    }
+
+    .contentWrapper {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 15px;
+
+        .contentTopWrapper {
+            display: block;
+            height: 115px;
+            width: 100%;
+            margin-bottom: 10px;
+            position: relative;
+            border-radius: 5px;
+            background: linear-gradient(0deg, #fc3175ff, #ff8bb2ff);
+
+            .deviceLink {
+                padding: 15px 15px 15px 30px;
+                color: #fff;
+                font-size: 15px;
+                line-height: 14px;
+                font-weight: 700;
+                display: block;
+                position: relative;
+
+                &::after {
+                    content: "";
+                    width: 1px;
+                    height: 14px;
+                    position: absolute;
+                    left:15px;
+                    border-left: 2px solid #fff;
+                }
+            }
+        }
+
+        .menuWrapper {
+            display: flex;
+            flex-direction: row;
+
+            .menuItem {
+                flex: 1;
+                padding: 25px 27px 20px;
+                background-color: #fff;
+
+                text-align: center;
+                color: #28282C;
+                font-size: 14px;
+                line-height: 24px;
+                font-weight: 700;
+
+                image {
+                    width: 111.5px;
+                    height: 90px;
+                }
+            }
+        }
+    }
+}
