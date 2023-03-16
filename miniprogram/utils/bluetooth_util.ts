@@ -1,6 +1,6 @@
 import Toast from '@vant/weapp/toast/toast';
 import {get} from './lodash'
-import { ab2hex, arrayBufferToString, string2Buffer, uint8Array2Str, } from './util';
+import { ab2hex, array2Buffer, arrayBufferToString, string2Buffer, uint8Array2Str, } from './util';
 
 
 const createBLEErrorCodeMap = {
@@ -368,14 +368,15 @@ export const writeAndReadBLECharacteristicValue = async (
     deviceId: string,
     serviceId: string,
     characteristicId: string,
-    value: string,
+    value: any,
 ) => {
     return new Promise(async (resolve, reject) => {
+        // const buffer = array2Buffer(value)
         // const buffer = string2Buffer('5559011E000071E9')
         const buffer = string2Buffer(value)
-        // console.log('发送协议码', {
-        //     buffer,
-        // })
+        console.log('发送协议码', {
+            buffer,
+        })
         try {
             await writeBLECharacteristicValue(
                 deviceId,

@@ -12,7 +12,7 @@ Component({
         const pages = getCurrentPages() //获取加载的页面
         const currentPage = pages[pages.length - 1] //获取当前页面的对象
         var url = currentPage.route
-        const active = tabbar_data_list.filter(item => item.url === url)[0]?.value
+        const active = tabbar_data_list.filter(item => item.url === url)[0].value
         this.setData({
             active,
             url,
@@ -21,7 +21,7 @@ Component({
     methods: {
         onChange(event: any) {
             const value: string = event.detail
-            const router = tabbar_data_list.filter(item => item.value === value)[0]?.router
+            const router = tabbar_data_list.filter(item => item.value === value)[0].router
             wx.switchTab({
                 url: router,
             })

@@ -52,6 +52,14 @@ Page({
       connected: app.globalData.deviceId || false,
       name: app.globalData.deviceName,
     });
+    if (this.data.connected && app.globalData.deviceName && app.globalData.deviceId) {
+        this.setData({
+            deviceList: [{
+                name: app.globalData.deviceName,
+                deviceId: app.globalData.deviceId,  
+            }]
+        })
+    }
     const that = this;
     wx.getSystemInfo({
       success(res) {
@@ -67,39 +75,20 @@ Page({
       },
     });
 
-    // getBluetoothAdapterState()
-    //   .then((res) => {
-    //     console.log("蓝牙可用");
-    //   })
-    //   .catch((res) => {
-    //     console.log("蓝牙不可用");
-    //   });
     //  开始扫描
     this.openBluetoothAdapter();
 
-    // wx.onBLEConnectionStateChange((res) => {
-    //     console.log("connectState", {res});
-    //     if (res.connected) {
-    //     //   Toast.success('连接成功!');
-    //     } else {
-    //         this.setData({
-    //             connected: false,
-    //             name: '',
-    //         })
-    //         //   Toast.fail('连接断开')
-    //       // that.showToast({
-    //       //   title: "连接断开",
-    //       // })
-    //     }
-    //   })
   },
   async openBluetoothAdapter() {
-    wx.showToast({
-        title: "",
-        icon: "loading",
-        mask: true,
-        duration: 2000,
-    });
+    wx.showLoading({
+        title: '扫描中',
+    })
+    // wx.showToast({
+    //     title: "",
+    //     icon: "loading",
+    //     mask: true,
+    //     duration: 2000,
+    // });
     const that = this;
     const failWhenBluetootoOpenCallback = () => {
       that.startBluetoothDevicesDiscovery();
@@ -111,6 +100,7 @@ Page({
     } catch (err) {
       // console.log({err})
       // Toast.fail(err.errMsg);
+      wx.hideLoading()
       wx.showToast({
         title: err.errMsg,
         icon: "error",
@@ -144,6 +134,7 @@ Page({
     } catch (err) {
       // console.log({err})
       // Toast.fail(err.errMsg);
+      wx.hideLoading()
       this.setData({
         _discoveryStarted: false,
       });
@@ -156,6 +147,50 @@ Page({
     }
   },
   async onBluetoothDeviceFound() {
+    wx.onBluetoothDeviceFound((res) => {
+        // console.log({
+        //     res,
+        // })
+        res.devices
+        // .filter(({ name, connectable }) => {
+        //   // return name.startsWith('UY')
+        //   // TODO
+        // //   return name.startsWith('UY') && connectable
+        //   return connectable;
+        // })
+        .forEach((device) => {
+          if (!device.name && !device.localName) {
+            return;
+          }
+          const foundDevices = this.data.deviceList;
+          const newDeviceList = [...foundDevices];
+          const idx = inArray(foundDevices, "deviceId", device.deviceId);
+          if (idx === -1) {
+            //  @ts-ignore
+            newDeviceList.push(device);
+          } else {
+            //  @ts-ignore
+            newDeviceList[idx] = device;
+          }
+          newDeviceList.sort((deviceA, deviceB) => {
+              return deviceB.RSSI - deviceA.RSSI
+          })
+          console.log({
+            newDeviceList,
+          })
+          this.setData({
+            deviceList: [...newDeviceList],
+          });
+        });
+      })
+      setTimeout(() => {
+        wx.hideLoading()
+        stopBluetoothDevicesDiscovery()
+        this.setData({
+            _discoveryStarted: false,
+        });
+      }, 10 * 1000)
+      return
     try {
       const res = await getBluetoothDevices();
       if (res.devices.length >= 1) {
@@ -164,14 +199,17 @@ Page({
         });
         stopBluetoothDevicesDiscovery()
       }
-      // console.log({res,}, 'getBluetoothDevices')
+      console.log({
+          res,
+            devices: res.devices,
+        }, 'getBluetoothDevices')
       res.devices
-        .filter(({ name, connectable }) => {
-          // return name.startsWith('UY')
-          // TODO
-        //   return name.startsWith('UY') && connectable
-          return connectable;
-        })
+        // .filter(({ name, connectable }) => {
+        //   // return name.startsWith('UY')
+        //   // TODO
+        // //   return name.startsWith('UY') && connectable
+        //   return connectable;
+        // })
         .forEach((device) => {
           if (!device.name && !device.localName) {
             return;
@@ -189,6 +227,9 @@ Page({
             // data[`deviceList[${idx}]`] = device
             newDeviceList[idx] = device;
           }
+          newDeviceList.sort((deviceA, deviceB) => {
+              return deviceA.RSSI - deviceB.RSSI
+          })
           console.log({
             newDeviceList,
           });
@@ -234,12 +275,15 @@ Page({
   },
   async createBLEConnection(e: any) {
     const that = this;
-    wx.showToast({
-      title: "",
-      icon: "loading",
-      mask: true,
-      duration: 2000,
-    });
+    // wx.showToast({
+    //   title: "",
+    //   icon: "loading",
+    //   mask: true,
+    //   duration: 2000,
+    // });
+    wx.showLoading({
+        title: '连接中',
+    })
     // console.log('建立蓝牙连接')
     const ds = e.currentTarget.dataset;
     const deviceId = ds.deviceId;
@@ -251,6 +295,7 @@ Page({
     //     connected: this.data.connected,
     // })
     if (id === this.data.connected) {
+        wx.hideLoading()
       Dialog.confirm({
         title: "断开连接?",
         message: "此操作将断开您与以下设备的连接:" + name,
@@ -279,13 +324,16 @@ Page({
             deviceId,
             serviceId
           );
-          // console.log({
-          //     characteristics,
-          // }, 'getBLEDeviceCharacteristics')
+        //   console.log({
+        //       characteristics,
+        //   }, 'getBLEDeviceCharacteristics')
           for (let j = 0; j < characteristics.length; j++) {
             let item = characteristics[j];
             const characteristicId = item.uuid;
             if (item.properties.notify || item.properties.indicate) {
+                if (characteristicId.toLocaleLowerCase() !== '0000ae02-0000-1000-8000-00805f9b34fb') {
+                    break
+                }
               await notifyBLECharacteristicValueChange(
                 deviceId,
                 serviceId,
@@ -295,12 +343,14 @@ Page({
                 serviceId,
                 characteristicId,
               };
-              // console.log('启用蓝牙notify功能', {
-              //     deviceId, serviceId, characteristicId
-              // })
+              console.log('启用蓝牙notify功能', {
+                  deviceId, serviceId, characteristicId
+              })
             }
             if (item.properties.read) {
-              // console.log('read')
+                // console.log('启用read功能', {
+                //     deviceId, serviceId, characteristicId
+                // })
               // wx.readBLECharacteristicValue({
               //     deviceId,
               //     serviceId,
@@ -311,6 +361,9 @@ Page({
               // })
             }
             if (item.properties.write) {
+                if (characteristicId.toLocaleLowerCase() !== '0000ae3b-0000-1000-8000-00805f9b34fb') {
+                    break
+                }
               getApp().globalData.connected = true;
               getApp().globalData.deviceId = deviceId;
               getApp().globalData.serviceId = serviceId;
@@ -319,11 +372,11 @@ Page({
                 serviceId,
                 characteristicId,
               };
-              // console.log({
-              //     deviceId,
-              //     serviceId,
-              //     characteristicId,
-              // }, '可写')
+              console.log('启用write功能',{
+                  deviceId,
+                  serviceId,
+                  characteristicId,
+              }, '')
               // setTimeout(() => {
               //     writeAndReadBLECharacteristicValue(
               //         deviceId,
@@ -350,7 +403,9 @@ Page({
         deviceId,
       });
       getApp().globalData.deviceName = name;
-      this.uploadConnectRecord(name);
+    //   this.uploadConnectRecord(name);
+      wx.hideLoading()
+      console.log('蓝牙连接成功!')
       // Toast.success('设备连接成功!');
       wx.showToast({
         title: "蓝牙已连接!",
@@ -360,6 +415,7 @@ Page({
     } catch (err) {
       // console.log({err}, '蓝牙连接失败')
       // Toast.fail(err.errMsg);
+      wx.hideLoading()
       wx.showToast({
         title: err.errMsg,
         icon: "error",

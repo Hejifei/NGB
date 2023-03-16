@@ -42,7 +42,8 @@
                     {{item.name}}
                 </div>
                 <div class="deviceNoWrapper">
-                    设备编号: xxxx
+                    设备编号: {{item.deviceId}}
+                    <!-- 信号强度: {{item.RSSI}} -->
                 </div>
             </div>
             <div class="actionWrapper">
