@@ -3,6 +3,7 @@
     "navigationBarTitleText": "图片上传",
     "navigationBarTextStyle": "white",
     "usingComponents": {
+        "image-cropper": "../../../image-cropper/src/image-cropper",
         "my_modal": "/component/my_modal/my_modal"
     }
 }
