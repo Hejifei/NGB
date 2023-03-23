@@ -1,23 +1,57 @@
 <!--index.wxml-->
 <view class="imgUploadWrapper">
-    <image-cropper
-        id="image-cropper"
-        limit_move="{{true}}"
-        disable_rotate="{{true}}"
-        width="{{width}}"
-        height="{{height}}"
-        min_width="{{width}}"
-        max_width="{{width}}"
-        min_height="{{height}}"
-        max_height="{{height}}"
-        disable_width
-        disable_height
-        export_scale="{{3}}"
-        imgSrc="{{src}}"
-        bindload="cropperload"
-        bindimageload="loadimage"
-        bindtapcut="clickcut"
-    ></image-cropper>
+    <canvas
+        type="2d"
+        class="canvasItem"
+        id="canvas"
+        height="128"
+        width="128"
+        style="width: 128px; height: 128px; display: none; border: 0 solid black;"
+    >
+    </canvas>
+    <image style="width: 128px; height: 128px;" src="{{imgBase64Str}}" />
+    <van-uploader
+        max-count="1"
+        file-list="{{ fileList }}"
+        deletable="{{ true }}"
+        bind:after-read="afterRead"
+        bind:click-preview="handlePreview"
+        bind:delete="handleDelte"
+    />
+    <div
+        class="imgCropperWrapper"
+        wx:if="{{imgCropperVisible}}"
+    >
+        <image-cropper
+            id="image-cropper"
+            limit_move="{{true}}"
+            disable_rotate="{{true}}"
+            width="{{width}}"
+            height="{{height}}"
+            min_width="{{width}}"
+            max_width="{{width}}"
+            min_height="{{height}}"
+            max_height="{{height}}"
+            disable_width
+            disable_height
+            export_scale="{{3}}"
+            imgSrc="{{src}}"
+            bindload="cropperload"
+            bindimageload="loadimage"
+            bindtapcut="clickcut"
+        ></image-cropper>
+        <!-- <div class="bottomActionLine">
+            <div
+                class="produceImg"
+                bindtap="clickcut"
+            >
+                生成图片
+            </div>
+        </div> -->
+    </div>
+    <p class="tips">
+        *上传图片的格式需为RGB565，分辨率为128*128；格式错误将上传失败
+    </p>
     <div
         class="confirmBtn"
         bindtap="confirmUpload"    

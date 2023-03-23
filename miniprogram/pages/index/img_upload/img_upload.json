@@ -4,6 +4,6 @@
     "navigationBarTextStyle": "white",
     "usingComponents": {
         "image-cropper": "../../../image-cropper/src/image-cropper",
-        "my_modal": "/component/my_modal/my_modal"
+        "my_modal": "/component/my_modal/my_modal","van-uploader": "@vant/weapp/uploader/index"
     }
 }

@@ -9,6 +9,33 @@
     box-sizing: border-box;
     padding: 15px;
 
+    .imgCropperWrapper {
+        border: 1px solid red;
+        width: 100%;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        .bottomActionLine {
+            width: 100%;
+            padding: 30px 15px;
+            box-sizing: border-box;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 99;
+            text-align: right;
+
+            .produceImg {
+                color: #fff;
+                background-color: green;
+                border-radius: 5px;
+                padding: 5px 10px;
+            }
+        }
+    }
+
     .confirmBtn {
         background-color: #FF6A9C;
         width: 100%;
@@ -21,5 +48,16 @@
         font-size: 15px;
         font-weight: bold;
         margin-top: 50px;
+    }
+
+    .canvasItem {
+        display: none;
+    }
+
+    .tips {
+        color: #F4420A;
+        font-size: 12px;
+        line-height: 20px;
+        font-weight: 500;
     }
 }
