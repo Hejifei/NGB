@@ -4,7 +4,7 @@ var __DEFINE__ = function(modId, func, req) { var m = { exports: {}, _tempexport
 var __REQUIRE__ = function(modId, source) { if(!__MODS__[modId]) return require(source); if(!__MODS__[modId].status) { var m = __MODS__[modId].m; m._exports = m._tempexports; var desp = Object.getOwnPropertyDescriptor(m, "exports"); if (desp && desp.configurable) Object.defineProperty(m, "exports", { set: function (val) { if(typeof val === "object" && val !== m._exports) { m._exports.__proto__ = val.__proto__; Object.keys(val).forEach(function (k) { m._exports[k] = val[k]; }); } m._tempexports = val }, get: function () { return m._tempexports; } }); __MODS__[modId].status = 1; __MODS__[modId].func(__MODS__[modId].req, m, m.exports); } return __MODS__[modId].m.exports; };
 var __REQUIRE_WILDCARD__ = function(obj) { if(obj && obj.__esModule) { return obj; } else { var newObj = {}; if(obj != null) { for(var k in obj) { if (Object.prototype.hasOwnProperty.call(obj, k)) newObj[k] = obj[k]; } } newObj.default = obj; return newObj; } };
 var __REQUIRE_DEFAULT__ = function(obj) { return obj && obj.__esModule ? obj.default : obj; };
-__DEFINE__(1678890020053, function(require, module, exports) {
+__DEFINE__(1679929298266, function(require, module, exports) {
 
 /**
  * index.js
@@ -277,8 +277,8 @@ Fetch.Response = Response;
 Fetch.Headers = Headers;
 Fetch.Request = Request;
 
-}, function(modId) {var map = {"./lib/body":1678890020054,"./lib/response":1678890020056,"./lib/headers":1678890020057,"./lib/request":1678890020058,"./lib/fetch-error":1678890020055}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020054, function(require, module, exports) {
+}, function(modId) {var map = {"./lib/body":1679929298267,"./lib/response":1679929298269,"./lib/headers":1679929298270,"./lib/request":1679929298271,"./lib/fetch-error":1679929298268}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929298267, function(require, module, exports) {
 
 /**
  * body.js
@@ -540,8 +540,8 @@ Body.prototype._clone = function(instance) {
 // expose Promise
 Body.Promise = global.Promise;
 
-}, function(modId) { var map = {"./fetch-error":1678890020055}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020055, function(require, module, exports) {
+}, function(modId) { var map = {"./fetch-error":1679929298268}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929298268, function(require, module, exports) {
 
 /**
  * fetch-error.js
@@ -578,7 +578,7 @@ function FetchError(message, type, systemError) {
 require('util').inherits(FetchError, Error);
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020056, function(require, module, exports) {
+__DEFINE__(1679929298269, function(require, module, exports) {
 
 /**
  * response.js
@@ -630,8 +630,8 @@ Response.prototype.clone = function() {
 	});
 };
 
-}, function(modId) { var map = {"./headers":1678890020057,"./body":1678890020054}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020057, function(require, module, exports) {
+}, function(modId) { var map = {"./headers":1679929298270,"./body":1679929298267}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929298270, function(require, module, exports) {
 
 /**
  * headers.js
@@ -775,7 +775,7 @@ Headers.prototype.raw = function() {
 };
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020058, function(require, module, exports) {
+__DEFINE__(1679929298271, function(require, module, exports) {
 
 /**
  * request.js
@@ -852,8 +852,8 @@ Request.prototype.clone = function() {
 	return new Request(this);
 };
 
-}, function(modId) { var map = {"./headers":1678890020057,"./body":1678890020054}; return __REQUIRE__(map[modId], modId); })
-return __REQUIRE__(1678890020053);
+}, function(modId) { var map = {"./headers":1679929298270,"./body":1679929298267}; return __REQUIRE__(map[modId], modId); })
+return __REQUIRE__(1679929298266);
 })()
 //miniprogram-npm-outsideDeps=["url","http","https","zlib","stream","encoding","is-stream","util"]
 //# sourceMappingURL=index.js.map

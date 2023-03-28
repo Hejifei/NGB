@@ -368,6 +368,8 @@ export const writeAndReadBLECharacteristicValue = async (
     deviceId: string,
     serviceId: string,
     characteristicId: string,
+    serviceIdNotify: string,
+    characteristicIdNotify: string,
     value: any,
 ) => {
     return new Promise(async (resolve, reject) => {
@@ -376,6 +378,9 @@ export const writeAndReadBLECharacteristicValue = async (
         const buffer = string2Buffer(value)
         console.log('发送协议码', {
             buffer,
+            deviceId,
+            serviceId,
+            characteristicId,
         })
         try {
             await writeBLECharacteristicValue(
@@ -384,10 +389,18 @@ export const writeAndReadBLECharacteristicValue = async (
                 characteristicId,
                 buffer
             )
+            // await writeBLECharacteristicValue(
+            //     deviceId,
+            //     serviceId,
+            //     characteristicId,
+            //     value
+            // )
             await readBLECharacteristicValue(
                 deviceId,
-                serviceId,
-                characteristicId
+                // serviceId,
+                // characteristicId
+                serviceIdNotify,
+                characteristicIdNotify,
             )
             resolve('')
         } catch (err) {

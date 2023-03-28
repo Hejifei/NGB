@@ -4,7 +4,7 @@ var __DEFINE__ = function(modId, func, req) { var m = { exports: {}, _tempexport
 var __REQUIRE__ = function(modId, source) { if(!__MODS__[modId]) return require(source); if(!__MODS__[modId].status) { var m = __MODS__[modId].m; m._exports = m._tempexports; var desp = Object.getOwnPropertyDescriptor(m, "exports"); if (desp && desp.configurable) Object.defineProperty(m, "exports", { set: function (val) { if(typeof val === "object" && val !== m._exports) { m._exports.__proto__ = val.__proto__; Object.keys(val).forEach(function (k) { m._exports[k] = val[k]; }); } m._tempexports = val }, get: function () { return m._tempexports; } }); __MODS__[modId].status = 1; __MODS__[modId].func(__MODS__[modId].req, m, m.exports); } return __MODS__[modId].m.exports; };
 var __REQUIRE_WILDCARD__ = function(obj) { if(obj && obj.__esModule) { return obj; } else { var newObj = {}; if(obj != null) { for(var k in obj) { if (Object.prototype.hasOwnProperty.call(obj, k)) newObj[k] = obj[k]; } } newObj.default = obj; return newObj; } };
 var __REQUIRE_DEFAULT__ = function(obj) { return obj && obj.__esModule ? obj.default : obj; };
-__DEFINE__(1678890019621, function(require, module, exports) {
+__DEFINE__(1679929297834, function(require, module, exports) {
 
 var fs = require('fs');
 
@@ -123,8 +123,8 @@ module.exports.detectFileSync = function(filepath, opts) {
   return self.detect(fs.readFileSync(filepath));
 };
 
-}, function(modId) {var map = {"./encoding/utf8":1678890019622,"./encoding/unicode":1678890019624,"./encoding/mbcs":1678890019625,"./encoding/sbcs":1678890019626,"./encoding/iso2022":1678890019627}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890019622, function(require, module, exports) {
+}, function(modId) {var map = {"./encoding/utf8":1679929297835,"./encoding/unicode":1679929297837,"./encoding/mbcs":1679929297838,"./encoding/sbcs":1679929297839,"./encoding/iso2022":1679929297840}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929297835, function(require, module, exports) {
 
 var Match = require ('../match');
 
@@ -210,8 +210,8 @@ module.exports = function() {
   };
 };
 
-}, function(modId) { var map = {"../match":1678890019623}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890019623, function(require, module, exports) {
+}, function(modId) { var map = {"../match":1679929297836}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929297836, function(require, module, exports) {
 
 module.exports = function(det, rec, confidence, name, lang) {
   this.confidence = confidence;
@@ -220,7 +220,7 @@ module.exports = function(det, rec, confidence, name, lang) {
 };
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890019624, function(require, module, exports) {
+__DEFINE__(1679929297837, function(require, module, exports) {
 
 var util = require('util'),
   Match = require ('../match');
@@ -334,8 +334,8 @@ module.exports.UTF_32LE = function() {
 };
 util.inherits(module.exports.UTF_32LE, UTF_32);
 
-}, function(modId) { var map = {"../match":1678890019623}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890019625, function(require, module, exports) {
+}, function(modId) { var map = {"../match":1679929297836}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929297838, function(require, module, exports) {
 var util = require('util'),
   Match = require ('../match');
 
@@ -839,8 +839,8 @@ module.exports.gb_18030 = function() {
 };
 util.inherits(module.exports.gb_18030, mbcs);
 
-}, function(modId) { var map = {"../match":1678890019623}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890019626, function(require, module, exports) {
+}, function(modId) { var map = {"../match":1679929297836}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929297839, function(require, module, exports) {
 var util = require('util'),
   Match = require ('../match');
 
@@ -1749,8 +1749,8 @@ util.inherits(module.exports.ISO_8859_7, sbcs);
 */
 
 
-}, function(modId) { var map = {"../match":1678890019623}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890019627, function(require, module, exports) {
+}, function(modId) { var map = {"../match":1679929297836}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929297840, function(require, module, exports) {
 var util = require('util'),
   Match = require ('../match');
 
@@ -1893,8 +1893,8 @@ module.exports.ISO_2022_CN = function() {
 };
 util.inherits(module.exports.ISO_2022_CN, ISO_2022);
 
-}, function(modId) { var map = {"../match":1678890019623}; return __REQUIRE__(map[modId], modId); })
-return __REQUIRE__(1678890019621);
+}, function(modId) { var map = {"../match":1679929297836}; return __REQUIRE__(map[modId], modId); })
+return __REQUIRE__(1679929297834);
 })()
 //miniprogram-npm-outsideDeps=["fs","util"]
 //# sourceMappingURL=index.js.map

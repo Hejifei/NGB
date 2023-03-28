@@ -15,6 +15,8 @@ App<IAppOption>({
     deviceId: undefined,
     serviceId: undefined,
     characteristicId: undefined,
+    deviceNotify: undefined,
+    deviceWrite: undefined,
   },
   onLaunch() {
     // 展示本地存储能力

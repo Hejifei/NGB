@@ -316,7 +316,10 @@ Page({
     try {
       await createBLEConnection(deviceId);
       const { services } = await getBLEDeviceServices(deviceId);
-      for (let i = services.length - 1; i >= 0; i--) {
+      console.log({
+        services,
+      })
+      for (let i = 0; i < services.length; i++) {
         // for (let i = 0; i < services.length; i++) {
         if (services[i].isPrimary) {
           const serviceId = services[i].uuid;
@@ -325,15 +328,21 @@ Page({
             serviceId
           );
         //   console.log({
-        //       characteristics,
+        //     services: services[i],
+        //     characteristics,
         //   }, 'getBLEDeviceCharacteristics')
           for (let j = 0; j < characteristics.length; j++) {
             let item = characteristics[j];
             const characteristicId = item.uuid;
-            if (item.properties.notify || item.properties.indicate) {
-                if (characteristicId.toLocaleLowerCase() !== '0000ae02-0000-1000-8000-00805f9b34fb') {
-                    break
-                }
+            // console.log({
+            //     characteristicId,
+            //     notify: item.properties.notify,
+            // })
+            if ((item.properties.notify || item.properties.indicate) && characteristicId.toLocaleLowerCase() === '0000ae02-0000-1000-8000-00805f9b34fb') {
+                // console.log({
+                //     characteristicId,
+                //     if: characteristicId.toLocaleLowerCase() !== '0000ae02-0000-1000-8000-00805f9b34fb',
+                // })
               await notifyBLECharacteristicValueChange(
                 deviceId,
                 serviceId,
@@ -343,31 +352,24 @@ Page({
                 serviceId,
                 characteristicId,
               };
+              getApp().globalData.deviceNotify = {
+                serviceId,
+                characteristicId,
+              };
               console.log('启用蓝牙notify功能', {
                   deviceId, serviceId, characteristicId
               })
             }
-            if (item.properties.read) {
-                // console.log('启用read功能', {
-                //     deviceId, serviceId, characteristicId
-                // })
-              // wx.readBLECharacteristicValue({
-              //     deviceId,
-              //     serviceId,
-              //     characteristicId,
-              //     success (res) {
-              //     //   console.log('readBLECharacteristicValue:', {res})
-              //     }
-              // })
-            }
-            if (item.properties.write) {
-                if (characteristicId.toLocaleLowerCase() !== '0000ae3b-0000-1000-8000-00805f9b34fb') {
-                    break
-                }
+            
+            if (item.properties.write && characteristicId.toLocaleLowerCase() === '0000ae3b-0000-1000-8000-00805f9b34fb') {
               getApp().globalData.connected = true;
               getApp().globalData.deviceId = deviceId;
               getApp().globalData.serviceId = serviceId;
               getApp().globalData.characteristicId = characteristicId;
+              getApp().globalData.deviceWrite = {
+                serviceId,
+                characteristicId,
+              };
               deviceInfo.write = {
                 serviceId,
                 characteristicId,

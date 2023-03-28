@@ -10,6 +10,14 @@ interface IAppOption {
     deviceId?: string,
     serviceId?: string,
     characteristicId?: string,
+    deviceNotify?: {
+        serviceId?: string,
+        characteristicId?: string,
+    },
+    deviceWrite?: {
+        serviceId?: string,
+        characteristicId?: string,
+    }
   }
   userInfoReadyCallback?: WechatMiniprogram.GetUserInfoSuccessCallback,
 }

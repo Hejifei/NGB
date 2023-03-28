@@ -8,6 +8,7 @@
   "license": "",
   "dependencies": {
     "@vant/weapp": "^1.10.14",
+    "iconv-lite": "^0.6.3",
     "we-cropper": "^1.4.0"
   },
   "devDependencies": {

@@ -4,7 +4,7 @@ var __DEFINE__ = function(modId, func, req) { var m = { exports: {}, _tempexport
 var __REQUIRE__ = function(modId, source) { if(!__MODS__[modId]) return require(source); if(!__MODS__[modId].status) { var m = __MODS__[modId].m; m._exports = m._tempexports; var desp = Object.getOwnPropertyDescriptor(m, "exports"); if (desp && desp.configurable) Object.defineProperty(m, "exports", { set: function (val) { if(typeof val === "object" && val !== m._exports) { m._exports.__proto__ = val.__proto__; Object.keys(val).forEach(function (k) { m._exports[k] = val[k]; }); } m._tempexports = val }, get: function () { return m._tempexports; } }); __MODS__[modId].status = 1; __MODS__[modId].func(__MODS__[modId].req, m, m.exports); } return __MODS__[modId].m.exports; };
 var __REQUIRE_WILDCARD__ = function(obj) { if(obj && obj.__esModule) { return obj; } else { var newObj = {}; if(obj != null) { for(var k in obj) { if (Object.prototype.hasOwnProperty.call(obj, k)) newObj[k] = obj[k]; } } newObj.default = obj; return newObj; } };
 var __REQUIRE_DEFAULT__ = function(obj) { return obj && obj.__esModule ? obj.default : obj; };
-__DEFINE__(1678890020026, function(require, module, exports) {
+__DEFINE__(1679929298239, function(require, module, exports) {
 /**
  * Inquirer.js
  * A collection of common interactive command line user interfaces.
@@ -90,8 +90,8 @@ inquirer.restoreDefaultPrompts = function () {
   inquirer.prompt.restoreDefaultPrompts();
 };
 
-}, function(modId) {var map = {"./objects/separator":1678890020027,"./ui/bottom-bar":1678890020028,"./ui/prompt":1678890020031,"./prompts/list":1678890020033,"./prompts/input":1678890020040,"./prompts/confirm":1678890020041,"./prompts/rawlist":1678890020042,"./prompts/expand":1678890020043,"./prompts/checkbox":1678890020044,"./prompts/password":1678890020045,"./prompts/editor":1678890020046}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020027, function(require, module, exports) {
+}, function(modId) {var map = {"./objects/separator":1679929298240,"./ui/bottom-bar":1679929298241,"./ui/prompt":1679929298244,"./prompts/list":1679929298246,"./prompts/input":1679929298253,"./prompts/confirm":1679929298254,"./prompts/rawlist":1679929298255,"./prompts/expand":1679929298256,"./prompts/checkbox":1679929298257,"./prompts/password":1679929298258,"./prompts/editor":1679929298259}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929298240, function(require, module, exports) {
 
 var chalk = require('chalk');
 var figures = require('figures');
@@ -128,7 +128,7 @@ Separator.prototype.toString = function () {
 };
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020028, function(require, module, exports) {
+__DEFINE__(1679929298241, function(require, module, exports) {
 /**
  * Sticky bottom bar user interface
  */
@@ -235,8 +235,8 @@ Prompt.prototype.write = function (message) {
   this.rl.output.write(message);
 };
 
-}, function(modId) { var map = {"./baseUI":1678890020029,"../utils/readline":1678890020030}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020029, function(require, module, exports) {
+}, function(modId) { var map = {"./baseUI":1679929298242,"../utils/readline":1679929298243}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929298242, function(require, module, exports) {
 
 var _ = require('lodash');
 var MuteStream = require('mute-stream');
@@ -311,7 +311,7 @@ function setupReadlineOptions(opt) {
 }
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020030, function(require, module, exports) {
+__DEFINE__(1679929298243, function(require, module, exports) {
 
 var ansiEscapes = require('ansi-escapes');
 
@@ -365,7 +365,7 @@ exports.clearLine = function (rl, len) {
 };
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020031, function(require, module, exports) {
+__DEFINE__(1679929298244, function(require, module, exports) {
 
 var _ = require('lodash');
 var rx = require('rx');
@@ -482,8 +482,8 @@ PromptUI.prototype.filterIfRunnable = function (question) {
   });
 };
 
-}, function(modId) { var map = {"../utils/utils":1678890020032,"./baseUI":1678890020029}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020032, function(require, module, exports) {
+}, function(modId) { var map = {"../utils/utils":1679929298245,"./baseUI":1679929298242}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929298245, function(require, module, exports) {
 
 var _ = require('lodash');
 var rx = require('rx');
@@ -512,7 +512,7 @@ exports.fetchAsyncQuestionProperty = function (question, prop, answers) {
 };
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020033, function(require, module, exports) {
+__DEFINE__(1679929298246, function(require, module, exports) {
 /**
  * `list` type prompt
  */
@@ -701,8 +701,8 @@ function listRender(choices, pointer) {
   return output.replace(/\n$/, '');
 }
 
-}, function(modId) { var map = {"./base":1678890020034,"../utils/events":1678890020038,"../utils/paginator":1678890020039}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020034, function(require, module, exports) {
+}, function(modId) { var map = {"./base":1679929298247,"../utils/events":1679929298251,"../utils/paginator":1679929298252}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929298247, function(require, module, exports) {
 /**
  * Base prompt implementation
  * Should be extended by prompt types.
@@ -841,8 +841,8 @@ Prompt.prototype.getQuestion = function () {
   return message;
 };
 
-}, function(modId) { var map = {"../objects/choices":1678890020035,"../utils/screen-manager":1678890020037}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020035, function(require, module, exports) {
+}, function(modId) { var map = {"../objects/choices":1679929298248,"../utils/screen-manager":1679929298250}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929298248, function(require, module, exports) {
 
 var assert = require('assert');
 var _ = require('lodash');
@@ -956,8 +956,8 @@ Choices.prototype.push = function () {
   return this.choices;
 };
 
-}, function(modId) { var map = {"./separator":1678890020027,"./choice":1678890020036}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020036, function(require, module, exports) {
+}, function(modId) { var map = {"./separator":1679929298240,"./choice":1679929298249}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929298249, function(require, module, exports) {
 
 var _ = require('lodash');
 
@@ -995,7 +995,7 @@ var Choice = module.exports = function (val, answers) {
 };
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020037, function(require, module, exports) {
+__DEFINE__(1679929298250, function(require, module, exports) {
 
 var _ = require('lodash');
 var util = require('./readline');
@@ -1132,8 +1132,8 @@ function forceLineReturn(content, width) {
   return _.flatten(breakLines(content.split('\n'), width)).join('\n');
 }
 
-}, function(modId) { var map = {"./readline":1678890020030}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020038, function(require, module, exports) {
+}, function(modId) { var map = {"./readline":1679929298243}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929298251, function(require, module, exports) {
 
 var rx = require('rx');
 
@@ -1181,7 +1181,7 @@ module.exports = function (rl) {
 };
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020039, function(require, module, exports) {
+__DEFINE__(1679929298252, function(require, module, exports) {
 
 
 var _ = require('lodash');
@@ -1222,7 +1222,7 @@ Paginator.prototype.paginate = function (output, active, pageSize) {
 };
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020040, function(require, module, exports) {
+__DEFINE__(1679929298253, function(require, module, exports) {
 /**
  * `input` type prompt
  */
@@ -1328,8 +1328,8 @@ Prompt.prototype.onKeypress = function () {
   this.render();
 };
 
-}, function(modId) { var map = {"./base":1678890020034,"../utils/events":1678890020038}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020041, function(require, module, exports) {
+}, function(modId) { var map = {"./base":1679929298247,"../utils/events":1679929298251}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929298254, function(require, module, exports) {
 /**
  * `confirm` type prompt
  */
@@ -1437,8 +1437,8 @@ Prompt.prototype.onKeypress = function () {
   this.render();
 };
 
-}, function(modId) { var map = {"./base":1678890020034,"../utils/events":1678890020038}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020042, function(require, module, exports) {
+}, function(modId) { var map = {"./base":1679929298247,"../utils/events":1679929298251}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929298255, function(require, module, exports) {
 /**
  * `rawlist` type prompt
  */
@@ -1619,8 +1619,8 @@ function renderChoices(choices, pointer) {
   return output;
 }
 
-}, function(modId) { var map = {"./base":1678890020034,"../objects/separator":1678890020027,"../utils/events":1678890020038,"../utils/paginator":1678890020039}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020043, function(require, module, exports) {
+}, function(modId) { var map = {"./base":1679929298247,"../objects/separator":1679929298240,"../utils/events":1679929298251,"../utils/paginator":1679929298252}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929298256, function(require, module, exports) {
 /**
  * `rawlist` type prompt
  */
@@ -1882,8 +1882,8 @@ function renderChoices(choices, pointer) {
   return output;
 }
 
-}, function(modId) { var map = {"./base":1678890020034,"../objects/separator":1678890020027,"../utils/events":1678890020038,"../utils/paginator":1678890020039}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020044, function(require, module, exports) {
+}, function(modId) { var map = {"./base":1679929298247,"../objects/separator":1679929298240,"../utils/events":1679929298251,"../utils/paginator":1679929298252}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929298257, function(require, module, exports) {
 /**
  * `list` type prompt
  */
@@ -2121,8 +2121,8 @@ function getCheckbox(checked) {
   return checked ? chalk.green(figures.radioOn) : figures.radioOff;
 }
 
-}, function(modId) { var map = {"./base":1678890020034,"../utils/events":1678890020038,"../utils/paginator":1678890020039}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020045, function(require, module, exports) {
+}, function(modId) { var map = {"./base":1679929298247,"../utils/events":1679929298251,"../utils/paginator":1679929298252}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929298258, function(require, module, exports) {
 /**
  * `password` type prompt
  */
@@ -2239,8 +2239,8 @@ Prompt.prototype.onKeypress = function () {
   this.render();
 };
 
-}, function(modId) { var map = {"./base":1678890020034,"../utils/events":1678890020038}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1678890020046, function(require, module, exports) {
+}, function(modId) { var map = {"./base":1679929298247,"../utils/events":1679929298251}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1679929298259, function(require, module, exports) {
 /**
  * `editor` type prompt
  */
@@ -2353,8 +2353,8 @@ Prompt.prototype.onError = function (state) {
   this.render(state.isValid);
 };
 
-}, function(modId) { var map = {"./base":1678890020034,"../utils/events":1678890020038}; return __REQUIRE__(map[modId], modId); })
-return __REQUIRE__(1678890020026);
+}, function(modId) { var map = {"./base":1679929298247,"../utils/events":1679929298251}; return __REQUIRE__(map[modId], modId); })
+return __REQUIRE__(1679929298239);
 })()
 //miniprogram-npm-outsideDeps=["chalk","figures","util","through","lodash","mute-stream","readline","ansi-escapes","rx","run-async","cli-cursor","assert","cli-width","strip-ansi","string-width","external-editor"]
 //# sourceMappingURL=index.js.map
