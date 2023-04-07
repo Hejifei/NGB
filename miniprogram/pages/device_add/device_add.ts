@@ -16,7 +16,9 @@ import {
   getBLEDeviceCharacteristics,
   notifyBLECharacteristicValueChange,
   closeBLEConnection,
+  writeAndReadBLECharacteristicValue,
 } from "../../utils/bluetooth_util";
+import { TextCodec } from "../../utils/utf8ToGb2312";
 // import Toast from '@vant/weapp/toast/toast';
 const app = getApp<IAppOption>();
 
@@ -147,41 +149,46 @@ Page({
     }
   },
   async onBluetoothDeviceFound() {
+    const historyDeviceList = await getHistoryDevices();
+    const deviceMap = {}
+    // historyDeviceList.forEach(item => {
+    //     if (item.nickName) {
+    //         deviceMap[item.deviceId] = item.nickName
+    //     }
+    // })
     wx.onBluetoothDeviceFound((res) => {
         // console.log({
         //     res,
         // })
+        
         res.devices
-        // .filter(({ name, connectable }) => {
-        //   // return name.startsWith('UY')
-        //   // TODO
-        // //   return name.startsWith('UY') && connectable
-        //   return connectable;
-        // })
-        .forEach((device) => {
-          if (!device.name && !device.localName) {
-            return;
-          }
-          const foundDevices = this.data.deviceList;
-          const newDeviceList = [...foundDevices];
-          const idx = inArray(foundDevices, "deviceId", device.deviceId);
-          if (idx === -1) {
-            //  @ts-ignore
-            newDeviceList.push(device);
-          } else {
-            //  @ts-ignore
-            newDeviceList[idx] = device;
-          }
-          newDeviceList.sort((deviceA, deviceB) => {
-              return deviceB.RSSI - deviceA.RSSI
-          })
-          console.log({
-            newDeviceList,
-          })
-          this.setData({
-            deviceList: [...newDeviceList],
-          });
-        });
+            .forEach((device) => {
+            if (!device.name && !device.localName) {
+                return;
+            }
+            if (deviceMap[device.deviceId]) {
+                device.nickName = deviceMap[device.deviceId]
+            }
+            const foundDevices = this.data.deviceList;
+            const newDeviceList = [...foundDevices];
+            const idx = inArray(foundDevices, "deviceId", device.deviceId);
+            if (idx === -1) {
+                //  @ts-ignore
+                newDeviceList.push(device);
+            } else {
+                //  @ts-ignore
+                newDeviceList[idx] = device;
+            }
+            newDeviceList.sort((deviceA, deviceB) => {
+                return deviceB.RSSI - deviceA.RSSI
+            })
+            console.log({
+                newDeviceList,
+            })
+            this.setData({
+                deviceList: [...newDeviceList],
+            });
+            });
       })
       setTimeout(() => {
         wx.hideLoading()
@@ -190,66 +197,6 @@ Page({
             _discoveryStarted: false,
         });
       }, 10 * 1000)
-      return
-    try {
-      const res = await getBluetoothDevices();
-      if (res.devices.length >= 1) {
-        this.setData({
-          _discoveryStarted: false,
-        });
-        stopBluetoothDevicesDiscovery()
-      }
-      console.log({
-          res,
-            devices: res.devices,
-        }, 'getBluetoothDevices')
-      res.devices
-        // .filter(({ name, connectable }) => {
-        //   // return name.startsWith('UY')
-        //   // TODO
-        // //   return name.startsWith('UY') && connectable
-        //   return connectable;
-        // })
-        .forEach((device) => {
-          if (!device.name && !device.localName) {
-            return;
-          }
-          const foundDevices = this.data.deviceList;
-          const newDeviceList = [...foundDevices];
-          const idx = inArray(foundDevices, "deviceId", device.deviceId);
-          // const data = {}
-          if (idx === -1) {
-            //  @ts-ignore
-            // data[`deviceList[${foundDevices.length}]`] = device
-            newDeviceList.push(device);
-          } else {
-            //  @ts-ignore
-            // data[`deviceList[${idx}]`] = device
-            newDeviceList[idx] = device;
-          }
-          newDeviceList.sort((deviceA, deviceB) => {
-              return deviceA.RSSI - deviceB.RSSI
-          })
-          console.log({
-            newDeviceList,
-          });
-          this.setData({
-            deviceList: [...newDeviceList],
-          });
-        });
-    } catch (err) {
-      this.setData({
-        _discoveryStarted: false,
-      });
-      stopBluetoothDevicesDiscovery()
-      console.log({ err }, "onBluetoothDeviceFound");
-      // Toast.fail(err.errMsg);
-      wx.showToast({
-        title: err.errMsg,
-        icon: "error",
-        duration: 2000,
-      });
-    }
   },
   async closeBLEConnection() {
     const { deviceId } = app.globalData;
@@ -327,10 +274,15 @@ Page({
             deviceId,
             serviceId
           );
-        //   console.log({
-        //     services: services[i],
-        //     characteristics,
-        //   }, 'getBLEDeviceCharacteristics')
+          console.log({
+            services: services[i],
+            serviceId: services[i].uuid,
+            characteristics,
+            characteristicsList: characteristics.map(item => ({
+                properties: item.properties,
+                id: item.uuid,
+            }))
+          }, 'getBLEDeviceCharacteristics')
           for (let j = 0; j < characteristics.length; j++) {
             let item = characteristics[j];
             const characteristicId = item.uuid;
@@ -414,6 +366,49 @@ Page({
         icon: "success",
         duration: 2000,
       });
+
+    //   if (true) {
+    //     setTimeout(() => {
+    //         const {
+    //         deviceId,
+    //         // serviceId,
+    //         // characteristicId,
+    //         deviceWrite = {},
+    //         deviceNotify = {},
+    //     } = app.globalData
+    //     const {
+    //         serviceId,
+    //         characteristicId,
+    //     } = deviceWrite
+    //     const {
+    //         serviceId: serviceIdNotify,
+    //         characteristicId: characteristicIdNotify,
+    //     } = deviceNotify
+    //     console.log({
+    //         deviceWrite,
+    //         deviceNotify,
+    //     })
+    //     const value = '电视机'
+    //     var gb2312 = TextCodec("GB2312","long",value)
+    //     console.log({
+    //         value,
+    //         gb2312,
+    //     })
+    //     // const buffer = `${parse10To16(valueLength)}06${gb2312}CRC_HCRC_L`
+    //     // const buffer = 'gb2312'
+    //     const buffer = '0501032050'
+    //     console.log('write before')
+    //     writeAndReadBLECharacteristicValue(
+    //         deviceId,
+    //         serviceId,
+    //         characteristicId,
+    //         serviceIdNotify,
+    //         characteristicIdNotify,
+    //         buffer,
+    //     )
+    //     console.log('write after')
+    //     }, 2000);
+    //   }
     } catch (err) {
       // console.log({err}, '蓝牙连接失败')
       // Toast.fail(err.errMsg);

@@ -24,6 +24,7 @@ interface IAppOption {
 
 interface IHistoryDeviceItem {
   name: string
+  nickName?: string
   deviceId: string
   notify?: {
       serviceId: string

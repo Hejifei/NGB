@@ -1,5 +1,5 @@
 import { Request } from "../../utils/request";
-import { getHistoryDevices } from "../../utils/util";
+import { getHistoryDevices, setHistoryDevices } from "../../utils/util";
 import Dialog from "@vant/weapp/dialog/dialog";
 import {
     createBLEConnection,
@@ -7,7 +7,9 @@ import {
     closeBLEConnection,
     getBLEDeviceServices,
     getBLEDeviceCharacteristics,
+    writeAndReadBLECharacteristicValue,
 } from "../../utils/bluetooth_util";
+import { parse10To16, parseProtocolCodeMessage } from "../../utils/protocol_util";
 const app = getApp<IAppOption>();
 
 Page({
@@ -15,6 +17,9 @@ Page({
         barhHeight: 0,
         titlePositionTop: 0,
         connected: "", //  已连蓝牙的id
+        isNickNameChangeVisible: false,
+        activeDeviceId: '',
+        nickName: '',
         historyDeviceList: [
             // {
             //     id: 1,
@@ -221,4 +226,108 @@ Page({
             url: "/pages/device_add/device_add",
         });
     },
+    handleNickNameChangeModalVisible(e: any) {
+        const ds = e.currentTarget.dataset;
+        const deviceId = ds.deviceId;
+        console.log({
+            deviceId,
+        })
+        this.setData({
+            isNickNameChangeVisible: true,
+            activeDeviceId: deviceId,
+            nickName: '',
+        });
+    },
+    closeNickNameChangeModal() {
+        this.setData({ isNickNameChangeVisible: false });
+    },
+    async handleNickNameChangeCodeSave() {
+        const that = this
+        console.log({
+            nickName: this.data.nickName,
+        })
+        if (!this.data.nickName) {
+            wx.showToast({
+                title: '请输入设备名称',
+                icon: "none",
+                mask: true,
+                duration: 2000
+            });
+            return
+        }
+    
+        wx.showToast({
+        title: '',
+        icon: "loading",
+        mask: true,
+        duration: 2000
+        });
+        const {activeDeviceId, nickName} = this.data
+        // if (!activeDeviceId) {
+        //     wx.showToast({
+        //         title: '无效的设备ID',
+        //         icon: "none",
+        //         mask: true,
+        //         duration: 2000
+        //     });
+        //     return
+        // }
+        const {
+            deviceId,
+            // serviceId,
+            // characteristicId,
+            deviceWrite = {},
+            deviceNotify = {},
+        } = app.globalData
+        const {
+            serviceId,
+            characteristicId,
+        } = deviceWrite
+        const {
+            serviceId: serviceIdNotify,
+            characteristicId: characteristicIdNotify,
+        } = deviceNotify
+        if (!deviceId || !serviceId || !characteristicId || !serviceIdNotify || !characteristicIdNotify) {
+            return
+        }
+        try {
+            const dataString = parseProtocolCodeMessage(
+                parse10To16(nickName.length + 4),
+                'fa',
+                nickName.split('').map((item: string) => item.charCodeAt().toString(16)).join(''),
+            )
+            console.log({
+                dataString,
+            })
+            writeAndReadBLECharacteristicValue(
+                deviceId,
+                serviceId,
+                characteristicId,
+                serviceIdNotify,
+                characteristicIdNotify,
+                dataString,
+            )
+            const deviceHistory = await getHistoryDevices();
+            deviceHistory.forEach(item => {
+                if (item.deviceId === activeDeviceId) {
+                    item.name = nickName
+                }
+            })
+            setHistoryDevices(deviceHistory);
+            wx.hideLoading();
+            wx.showToast({
+                title: "昵称更新成功!",
+                icon: "success",
+                duration: 3000
+            });
+            that.closeNickNameChangeModal()
+            // that.setData({
+            //     historyDeviceList: deviceHistory,
+            // });
+        } catch (err) {
+            console.log({err})
+        }
+        
+          
+      },
 });

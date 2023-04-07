@@ -3,7 +3,7 @@
 >
     <div class="historyTitle">
         <div class="actionWrapper" bindtap="changePageToAddDevice">
-            添加新设备
+            + 添加新设备
         </div>
     </div>
     <div class="historyListWrapper">
@@ -22,12 +22,14 @@
 
                     <div
                         class="editWrapper"
+                        data-device-id="{{item.deviceId}}"
+                        bindtap="handleNickNameChangeModalVisible"
                     >
                         <image src="/assets/imgs/action/edit.png" />
                     </div>
                 </div>
                 <div class="deviceNoWrapper">
-                    设备编号: xxxx
+                    设备编号: {{item.deviceId}}
                 </div>
             </div>
             <div
@@ -52,6 +54,26 @@
         </div>
     </div>
   
-  <!-- <blank height="10" /> -->
-  <van-dialog id="van-dialog" />
+    <!-- <blank height="10" /> -->
+    <van-dialog id="van-dialog" />
+    <van-dialog
+        use-slot
+        title="设备名称修改"
+        show="{{isNickNameChangeVisible}}"
+        bind:close="closeNickNameChangeModal"
+        showConfirmButton="{{false}}"
+        customStyle="border-radius: 2px;"
+    >
+        <div class="debugCodeWrapper">
+            <div class="closeWrapper" bindtap="closeNickNameChangeModal">
+                <van-icon name="close" size="30px" />
+            </div>
+            <van-cell-group>
+                <van-field center input-align="center" model:value="{{nickName}}" placeholder="请输入设备名称" border="{{true}}" />
+            </van-cell-group>
+            <div class="actionWrapper">
+                <van-button type="primary" size="small" bindtap="handleNickNameChangeCodeSave">确认</van-button>
+            </div>
+        </div>
+    </van-dialog>
 </view>

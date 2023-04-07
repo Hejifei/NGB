@@ -19,8 +19,8 @@ export const parseProtocolCodeMessage = (
     data
   ].join('')
   //  校验码
-//   const checkCode = ModBusCRC16(frontCode)
-  const checkCode = 'CRC_HCRC_L'
+  const checkCode = ModBusCRC16(frontCode)
+//   const checkCode = 'CRC_HCRC_L'
   return [
     frontCode,
     checkCode,

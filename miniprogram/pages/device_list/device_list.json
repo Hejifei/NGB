@@ -3,8 +3,12 @@
     "navigationBarTitleText": "设备列表",
     "navigationBarTextStyle": "white",
     "usingComponents": {
+        "van-button": "@vant/weapp/button/index",
+        "van-field": "@vant/weapp/field/index",
         "van-empty": "@vant/weapp/empty/index",
         "van-icon": "@vant/weapp/icon/index",
-        "van-dialog": "@vant/weapp/dialog/index"
+        "van-dialog": "@vant/weapp/dialog/index",
+        "van-cell": "@vant/weapp/cell/index",
+        "van-cell-group": "@vant/weapp/cell-group/index"
     }
 }

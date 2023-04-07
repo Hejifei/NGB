@@ -328,7 +328,7 @@ export const writeBLECharacteristicValue = (
             serviceId, //蓝牙特征值服务id
             characteristicId, //蓝牙特征值写的uuid
             value: buffer, 
-            writeType: 'write',
+            // writeType: 'write',
             success (res) {
                 console.log('蓝牙写成功', {res})
                 resolve(res)
@@ -347,6 +347,11 @@ export const readBLECharacteristicValue = (
     serviceId: string,
     characteristicId: string,
 ) => {
+    console.log({
+        deviceId,
+        serviceId,
+        characteristicId,
+    }, 'readBLECharacteristicValue')
     return new Promise((resolve, reject) => {
         wx.readBLECharacteristicValue({
             deviceId, //蓝牙设备id
@@ -370,12 +375,19 @@ export const writeAndReadBLECharacteristicValue = async (
     characteristicId: string,
     serviceIdNotify: string,
     characteristicIdNotify: string,
-    value: any,
+    value: string,
 ) => {
     return new Promise(async (resolve, reject) => {
-        // const buffer = array2Buffer(value)
-        // const buffer = string2Buffer('5559011E000071E9')
+        // const buffer = value
         const buffer = string2Buffer(value)
+        console.log('发送协议码', {
+            buffer,
+        })
+        // const buffer = array2Buffer(value)
+        // var dataView = new Uint8Array(buffer)
+        // for (var i = 0; i < value.length; i++) {
+        //     dataView[i] = value.charCodeAt(i)
+        // }
         console.log('发送协议码', {
             buffer,
             deviceId,
@@ -389,19 +401,11 @@ export const writeAndReadBLECharacteristicValue = async (
                 characteristicId,
                 buffer
             )
-            // await writeBLECharacteristicValue(
+            // await readBLECharacteristicValue(
             //     deviceId,
-            //     serviceId,
-            //     characteristicId,
-            //     value
+            //     serviceIdNotify,
+            //     characteristicIdNotify,
             // )
-            await readBLECharacteristicValue(
-                deviceId,
-                // serviceId,
-                // characteristicId
-                serviceIdNotify,
-                characteristicIdNotify,
-            )
             resolve('')
         } catch (err) {
             console.log('writeAndReadBLECharacteristicValue', {err})
