@@ -7,6 +7,7 @@
         placeholder="点击输入文字"
         custom-style="background: #F4F6F8; border-radius: 5px; min-height: 200px; line-height: 20px;"
         autosize
+        maxlength='24'
         border="{{ false }}"
     />
 
@@ -16,5 +17,12 @@
     >
         确认上传
     </div>
-    <!-- <my_modal></my_modal> -->
+    <my_modal
+        wx:if="{{myModalVisible}}"
+        model_type="{{model_type}}"
+        title="{{title}}"
+        content="{{content}}"
+        bind:close="handleConfirm"
+        bind:confirm="handleConfirm"
+    ></my_modal>
 </view>

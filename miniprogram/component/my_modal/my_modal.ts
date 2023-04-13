@@ -11,19 +11,19 @@ Component({
         },
         content: {
             type: String,
-            value: 'contentcontentcontentcontentcontentcontentcontent',
+            value: '',
         },
         confirmText: {
             type: String,
             value: '确定'
         },
-        handleClose: {
+        close: {
             type: Function,
-            value: () => {},
+            // value: () => {console.log('handleClose')},
         },
-        handleConfirm: {
+        confirm: {
             type: Function,
-            value: () => {},
+            // value: () => {console.log('handleConfirm')},
         },
     },
     data: {
@@ -31,5 +31,11 @@ Component({
     created() {
     },
     methods: {
+        handleConfirm () {
+            this.triggerEvent('confirm');
+        },
+        handleClose () {
+            this.triggerEvent('close');
+        },
     }
 })

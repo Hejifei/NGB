@@ -17,6 +17,11 @@
                 src="../../assets/imgs/modal/waiting.png"
             />
             <image
+                wx:if="{{model_type === 'success'}}"
+                class="success"
+                src="../../assets/imgs/modal/success.png"
+            />
+            <image
                 wx:if="{{model_type === 'error'}}"
                 src="../../assets/imgs/modal/error.png"
             />

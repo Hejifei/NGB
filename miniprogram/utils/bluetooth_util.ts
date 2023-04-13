@@ -410,11 +410,11 @@ export const writeAndReadBLECharacteristicValue = async (
         } catch (err) {
             console.log('writeAndReadBLECharacteristicValue', {err})
             // throw new Error(err.errMsg.split(':')[1])
-            wx.showToast({
-                title: err.errMsg.split(':').splice(1).join(','),
-                icon: "none",
-                duration: 3000
-            });
+            // wx.showToast({
+            //     title: err.errMsg.split(':').splice(1).join(','),
+            //     icon: "none",
+            //     duration: 3000
+            // });
             reject(err)
             // Toast.fail(err.errMsg);
         }
