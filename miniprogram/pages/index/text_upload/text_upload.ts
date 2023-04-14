@@ -68,12 +68,20 @@ Page({
             serviceId: serviceIdNotify,
             characteristicId: characteristicIdNotify,
         } = deviceNotify
-        if (!deviceId || !serviceId || !characteristicId || !serviceIdNotify || !characteristicIdNotify) {
-            return
-        }
+        
         
         if (!this.data.text) {
             wx.showToast({ title: '请输入文字!', icon: 'none' });
+            return
+        }
+        const value = this.data.text || ''
+        const valueLength = getLength(value)
+        var gb2312 = TextCodec("GB2312","long",value)
+        if (valueLength > 48) {
+            wx.showToast({ title: '输入文字数量超过限制请重新输入!', icon: 'none' });
+            return
+        }
+        if (!deviceId || !serviceId || !characteristicId || !serviceIdNotify || !characteristicIdNotify) {
             return
         }
         this.setData({
@@ -82,9 +90,7 @@ Page({
             title: '上传中...',
             content: '请保持设备和手机蓝牙处于开启状态',
         })
-        const value = this.data.text || ''
-        const valueLength = getLength(value)
-        var gb2312 = TextCodec("GB2312","long",value)
+        
 
         let str = gb2312
         const len = str.length / 32;

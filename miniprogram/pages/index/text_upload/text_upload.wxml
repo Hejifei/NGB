@@ -4,10 +4,10 @@
         model:value="{{text}}"
         label=""
         type="textarea"
-        placeholder="点击输入文字"
+        placeholder="最多输入24个文字(包含标点符号)"
         custom-style="background: #F4F6F8; border-radius: 5px; min-height: 200px; line-height: 20px;"
         autosize
-        maxlength='24'
+        maxlength='48'
         border="{{ false }}"
     />
 

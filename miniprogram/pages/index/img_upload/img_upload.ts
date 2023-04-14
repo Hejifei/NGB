@@ -392,30 +392,31 @@ Page({
         )
         console.log({
             dataString,
-        }, '图片信息指令 写')
-        if (!deviceId || !serviceId || !characteristicId || !serviceIdNotify || !characteristicIdNotify) {
-            return
-        }
-        try {
-            writeAndReadBLECharacteristicValue(
-                deviceId,
-                serviceId,
-                characteristicId,
-                serviceIdNotify,
-                characteristicIdNotify,
-                dataString,
-            )
-        } catch (err) {
-            console.log('getBaseInfo error: ', {err})
-        }
-        const dataStringWriteImg = parseProtocolCodeMessage(
+        }, '要更新的图片编号 写')
+        // if (!deviceId || !serviceId || !characteristicId || !serviceIdNotify || !characteristicIdNotify) {
+        //     return
+        // }
+        // try {
+        //     writeAndReadBLECharacteristicValue(
+        //         deviceId,
+        //         serviceId,
+        //         characteristicId,
+        //         serviceIdNotify,
+        //         characteristicIdNotify,
+        //         dataString,
+        //     )
+        // } catch (err) {
+        //     console.log('getBaseInfo error: ', {err})
+        // }
+        const dataStringWriteImgStart = parseProtocolCodeMessage(
             parse10To16(8),
             'f5',
-            '00000001',
+            '0000' + parse10To16(4096, 2),
         )
         console.log({
-            dataStringWriteImg,
-        }, '传送图片内容 写')
+            dataStringWriteImgStart,
+            parse10To16: parse10To16(4096, 2)
+        }, '图片内容 写')
         try {
             writeAndReadBLECharacteristicValue(
                 deviceId,
@@ -423,7 +424,7 @@ Page({
                 characteristicId,
                 serviceIdNotify,
                 characteristicIdNotify,
-                dataStringWriteImg,
+                dataStringWriteImgStart,
             )
         } catch (err) {
             console.log('getBaseInfo error: ', {err})
